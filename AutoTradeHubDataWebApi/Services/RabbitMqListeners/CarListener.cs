@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Localization;
 
 namespace AutoTradeHubDataWebApi.Services.RabbitMqListeners
 {
@@ -15,10 +16,12 @@ namespace AutoTradeHubDataWebApi.Services.RabbitMqListeners
 		private IConnection _connection;
 		private IModel _channel;
 		private readonly string _queueName = "Car";
+		private readonly string _appUrl;
 
 		public CarListener()
 		{
 			var factory = new ConnectionFactory { Uri = new Uri(MyConfig.CloudAMQPUri) };
+			_appUrl = MyConfig.AppURL;
 			_connection = factory.CreateConnection();
 			_channel = _connection.CreateModel();
 			_channel.QueueDeclare(queue: _queueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
@@ -31,14 +34,33 @@ namespace AutoTradeHubDataWebApi.Services.RabbitMqListeners
 			var consumer = new EventingBasicConsumer(_channel);
 			consumer.Received += (model, eventArgs) =>
 			{
+				string commandName = "Команда не обнаружена";
 				var content = Encoding.UTF8.GetString(eventArgs.Body.ToArray());
-				var commandNameBytes = (byte[])eventArgs.BasicProperties.Headers["CommandName"];
-				var commandName = Encoding.UTF8.GetString(commandNameBytes);
+
+				if (eventArgs.BasicProperties.Headers != null)
+				{
+					try
+					{
+						var commandNameBytes = (byte[])eventArgs.BasicProperties.Headers["CommandName"];
+						commandName = Encoding.UTF8.GetString(commandNameBytes);
+					}
+					catch (Exception)
+					{
+					}
+				}
 
 				Debug.WriteLine($"Получено сообщение: {content}, команда: {commandName}");
 
-				//HttpClient httpClient = new HttpClient();
-				//httpClient.GetAsync("http://localhost:55281/api/Car");
+				switch (commandName)
+				{
+					case "GetCars":
+						HttpClient httpClient = new HttpClient();
+						string requestUrl = _appUrl + "/api/Car";
+						httpClient.GetAsync(requestUrl);
+						break;
+					default:
+						break;
+				}
 
 				_channel.BasicAck(eventArgs.DeliveryTag, false);
 			};

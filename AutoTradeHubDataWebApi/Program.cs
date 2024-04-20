@@ -15,9 +15,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//builder.Services.AddHostedService<BackgroundWorkerService>();
-//builder.Services.AddHostedService<RabbitMqListener>();
-
 // RabbitMq background listeners
 builder.Services.AddHostedService<CarListener>();
 
@@ -25,6 +22,7 @@ builder.Services.AddScoped<ICarRepository, CarRepository>();
 builder.Services.AddScoped<IRabbitMqService, RabbitMqService>();
 
 MyConfig.CloudAMQPUri = builder.Configuration.GetConnectionString("CloudAMQPUri");
+MyConfig.AppURL = "http://localhost:55281"; //хз как взять из настроек
 
 var connectionString = builder.Configuration.GetConnectionString("AppDbConnectionString");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
