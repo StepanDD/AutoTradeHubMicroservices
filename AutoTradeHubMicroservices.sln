@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34701.34
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microservices", "Microservices", "{E8B8EC10-358A-4A24-A4DE-B3FD63B34CCD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoTradeHubDataWebApi", "AutoTradeHubDataWebApi\AutoTradeHubDataWebApi.csproj", "{EEF7F54E-14A7-45C8-9BAB-6DD56C98648F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EEF7F54E-14A7-45C8-9BAB-6DD56C98648F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEF7F54E-14A7-45C8-9BAB-6DD56C98648F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEF7F54E-14A7-45C8-9BAB-6DD56C98648F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEF7F54E-14A7-45C8-9BAB-6DD56C98648F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EEF7F54E-14A7-45C8-9BAB-6DD56C98648F} = {E8B8EC10-358A-4A24-A4DE-B3FD63B34CCD}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {052EE13B-3422-4454-9F84-5B34C829F559}
+	EndGlobalSection
+EndGlobal
