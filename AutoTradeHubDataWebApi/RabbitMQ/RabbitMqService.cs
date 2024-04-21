@@ -20,14 +20,14 @@ namespace AutoTradeHubDataWebApi.RabbitMQ
 			using var connection = factory.CreateConnection();
 			using var channel = connection.CreateModel();
 			channel.QueueDeclare(queue: _routingKey,
-						   durable: false,
+						   durable: true,
 						   exclusive: false,
 						   autoDelete: false,
 						   arguments: null);
 
 			var body = Encoding.UTF8.GetBytes(message);
 
-			channel.BasicPublish(exchange: "",
+			channel.BasicPublish(exchange: "AutoTradeHubViewService",
 						   routingKey: _routingKey,
 						   basicProperties: null,
 						   body: body);

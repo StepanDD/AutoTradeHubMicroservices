@@ -25,7 +25,7 @@ namespace AutoTradeHubDataWebApi.Controllers
 		public async Task<ActionResult> GetCars()
 		{
 			var cars = await _carRepository.GetAll();
-			_rabbitMqService.SendMessage(cars, "Test");
+			_rabbitMqService.SendMessage(cars, "GetCars");
 			Debug.WriteLine("Отправлен список авто");
 			return Ok();
 		}
