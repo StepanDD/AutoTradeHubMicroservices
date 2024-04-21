@@ -20,6 +20,7 @@ namespace AutoTradeHubViewService.RabbitMQ
 			var factory = new ConnectionFactory() { Uri = new Uri(MyConfig.CloudAMQPUri) };
 			using var connection = factory.CreateConnection();
 			using var channel = connection.CreateModel();
+			channel.ConfirmSelect();
 			channel.QueueDeclare(queue: _routingKey,
 						   durable: true,
 						   exclusive: false,
@@ -35,6 +36,7 @@ namespace AutoTradeHubViewService.RabbitMQ
 						   routingKey: _routingKey,
 						   basicProperties: props,
 						   body: body);
+			channel.WaitForConfirms();
 			Debug.WriteLine($"Сообщение отправлено: очередь: {_routingKey}, команда: {commandName}, сообщение: {message}");
 		}
 	}

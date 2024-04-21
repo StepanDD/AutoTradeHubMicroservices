@@ -20,11 +20,16 @@ namespace AutoTradeHubViewService.Controllers
             _rabbitMqGetMsgService = rabbitMqGetMsgService;
         }
 
-		public IActionResult Index()
+		public async Task<IActionResult> Index()
 		{
-			_rabbitMqService.SendMessage("Hello", "Car", "GetCars");
+			_rabbitMqService.SendMessage("", "Car", "GetCars");
 			List<Car> cars = new List<Car>();
 			string msg = _rabbitMqGetMsgService.GetMessage("GetCars");
+			if (msg == "")
+			{
+				await Task.Delay(3000);
+				msg = _rabbitMqGetMsgService.GetMessage("GetCars");
+			}
 			try
 			{
 				cars = JsonSerializer.Deserialize<List<Car>>(msg);

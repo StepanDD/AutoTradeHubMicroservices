@@ -37,9 +37,13 @@ namespace AutoTradeHubDataWebApi.Controllers
 		}
 
 		[HttpGet("{id:int}")]
-		public async Task<Car> GetCarById(int id)
+		public async Task<IActionResult> GetCarById(int id)
 		{
-			return await _carRepository.GetByIdAsync(id);
+			Car car = await _carRepository.GetByIdAsync(id);
+			string queueName = "Car" + Convert.ToString(id);
+			_rabbitMqService.SendMessage(car, queueName);
+			Debug.WriteLine($"Отправлено авто с id: {id}");
+			return Ok();
 		}
 
 		[HttpPost]

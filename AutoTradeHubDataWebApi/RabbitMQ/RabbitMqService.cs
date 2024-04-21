@@ -19,11 +19,15 @@ namespace AutoTradeHubDataWebApi.RabbitMQ
 			var factory = new ConnectionFactory() { Uri = new Uri(MyConfig.CloudAMQPUri) };
 			using var connection = factory.CreateConnection();
 			using var channel = connection.CreateModel();
+			var queueArgs = new Dictionary<string, object>();
+			queueArgs["x-expires"] = 1000; // Попробовать добить
 			channel.QueueDeclare(queue: _routingKey,
 						   durable: true,
 						   exclusive: false,
 						   autoDelete: false,
 						   arguments: null);
+
+			channel.QueueBind(_routingKey, "AutoTradeHubViewService", _routingKey);
 
 			var body = Encoding.UTF8.GetBytes(message);
 

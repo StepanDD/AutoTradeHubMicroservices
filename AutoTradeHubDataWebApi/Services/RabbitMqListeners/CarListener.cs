@@ -50,12 +50,16 @@ namespace AutoTradeHubDataWebApi.Services.RabbitMqListeners
 				}
 
 				Debug.WriteLine($"Получено сообщение: {content}, команда: {commandName}");
-
+				HttpClient httpClient = new HttpClient();
+				string requestUrl = "";
 				switch (commandName)
 				{
 					case "GetCars":
-						HttpClient httpClient = new HttpClient();
-						string requestUrl = _appUrl + "/api/Car";
+						requestUrl = _appUrl + "/api/Car";
+						httpClient.GetAsync(requestUrl);
+						break;
+					case "GetCarById":
+						requestUrl = _appUrl + "/api/Car/" + content;
 						httpClient.GetAsync(requestUrl);
 						break;
 					default:

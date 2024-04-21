@@ -1,0 +1,80 @@
+﻿@model Car
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="container mt-4">
+	<div class="d-flex justify-content-between mb-4">
+		<h2>@Model.Marka?.Name @Model.Model?.Name @Model.Year</h2>
+		<h2>@Model.Price ₽</h2>
+	</div>
+
+	<div class="row">
+		<div class="col">
+			<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+				<div class="carousel-indicators">
+					<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+					<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+					<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+				</div>
+				<div class="carousel-inner detail-carousel-inner">
+					<div class="carousel-item active" data-bs-interval="600000">
+						<img src="\img\KIA RIO 2019.jpg" class="carousel-item-img d-block w-100" alt="...">
+					</div>
+					<div class="carousel-item" data-bs-interval="600000">
+						<img src="\img\mini-coupe-high-speed-drive-road-with-front-lights.jpg" class="carousel-item-img d-block w-100" alt="...">
+					</div>
+					<div class="carousel-item" data-bs-interval="600000">
+						<img src="\img\sports-car-driving-asphalt-road-night-generative-ai.jpg" class="carousel-item-img d-block w-100" alt="...">
+					</div>
+				</div>
+				<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Previous</span>
+				</button>
+				<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Next</span>
+				</button>
+			</div>
+			<div class="d-flex justify-content-between mt-4">
+				<button type="button" class="btn btn-outline-primary">Добавить в избранное</button>
+				<button type="button" class="btn btn-outline-primary">Связаться с продавцом</button>
+				<button type="button" class="btn btn-outline-primary">Поделиться объявлением</button>
+			</div>
+		</div>
+		<div class="col">
+			<div class="row">
+				<div class="col-md-auto">
+					<p class="text-muted">Двигатель</p>
+					<p class="text-muted">Мощность</p>
+					<p class="text-muted">Коробка передач</p>
+					<p class="text-muted">Привод</p>
+					<p class="text-muted">Тип кузова</p>
+					<p class="text-muted">Цвет</p>
+					<p class="text-muted">Пробег</p>
+					<p class="text-muted">Руль</p>
+					<p class="text-muted">Поколение</p>
+				</div>
+				<div class="col">
+					<p>@Model.EngineType , @Model.EngineVolume л</p>
+					<p>@Model.EnginePower л.с.</p>
+					<p>@Model.Gearbox</p>
+					<p>@Model.Privod</p>
+					<p>@Model.BodyType</p>
+					<p>@Model.Color?.Name</p>
+					<p>@Model.Probeg км</p>
+					<p>@Model.SteeringWheel</p>
+					<p>@Model.Generation?.Name</p>
+				</div>
+				<div class="mt-4">
+					<p class="text-muted">Описание</p>
+					<p>@Model.Description</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
