@@ -6,7 +6,8 @@ namespace AutoTradeHubDataWebApi.Models
     public class Car
     {
         [Key]
-        public int Id { get; set; }
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public int Id { get; set; }
 
         // Марка
 

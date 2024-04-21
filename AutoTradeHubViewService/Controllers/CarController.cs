@@ -40,5 +40,19 @@ namespace AutoTradeHubViewService.Controllers
 				return BadRequest();
 			}
 		}
+		public IActionResult Create()
+		{
+			return View();
+		}
+		[HttpPost]
+		public async Task<IActionResult> Create(Car car)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View();
+			}
+			_rabbitMqService.SendMessage(car, "Car", "AddCar");
+			return RedirectToAction("Index", "Home");
+		}
 	}
 }

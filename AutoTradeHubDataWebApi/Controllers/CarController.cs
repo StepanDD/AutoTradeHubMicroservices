@@ -5,6 +5,7 @@ using AutoTradeHubDataWebApi.RabbitMQ;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Text.Json;
 
 namespace AutoTradeHubDataWebApi.Controllers
 {
@@ -47,11 +48,15 @@ namespace AutoTradeHubDataWebApi.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult AddCar(Car car)
+		public ActionResult AddCar(string carJson)
 		{
+			Debug.WriteLine("Зашли в пост запрос, поздравляю!");
+
+			Car car = JsonSerializer.Deserialize<Car>(carJson);
+
 			if (!ModelState.IsValid) return BadRequest();
 			_carRepository.Add(car);
-			_rabbitMqService.SendMessage(car, "Test");
+			Debug.WriteLine("Авто добавлено");
 			return Ok();
 		}
 

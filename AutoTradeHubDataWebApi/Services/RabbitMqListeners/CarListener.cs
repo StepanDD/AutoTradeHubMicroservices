@@ -62,6 +62,11 @@ namespace AutoTradeHubDataWebApi.Services.RabbitMqListeners
 						requestUrl = _appUrl + "/api/Car/" + content;
 						httpClient.GetAsync(requestUrl);
 						break;
+					case "AddCar":
+						requestUrl = _appUrl + "/api/Car?carJson=" + content;
+						StringContent httpContent = new StringContent(content);
+						httpClient.PostAsync(requestUrl, httpContent);
+						break;
 					default:
 						break;
 				}
